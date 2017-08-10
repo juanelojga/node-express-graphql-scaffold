@@ -5,7 +5,11 @@ export default () => {
 	let api = Router();
 	
 	api.get('/', (req, res) => {
-		res.json({ version });
+		res.json({
+			"version": version,
+			"status": "online",
+			"date": new Date
+		});
 	});
 
 	return api;
