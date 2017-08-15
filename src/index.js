@@ -22,17 +22,14 @@ app.use(bodyParser.json({
 	limit : config.bodyLimit
 }));
 
-// connect to db
-models.sync().catch(err => console.error(err.stack)).then(() => {
-	// internal middleware
-	app.use(middleware());
+// internal middleware
+app.use(middleware());
 
-	// api router
-	app.use('/api', api());
+// api router
+app.use('/api', api());
 
-	app.server.listen(process.env.PORT || config.port, () => {
-		console.log(`Started on port ${app.server.address().port}`);
-	});
+app.server.listen(process.env.PORT || config.port, () => {
+	console.log(`Started on port ${app.server.address().port}`);
 });
 
 export default app;
