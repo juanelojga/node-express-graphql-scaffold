@@ -8,7 +8,7 @@
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
     "start": "node dist",
     "prestart": "npm run -s build",
-    "test": "eslint src && mocha --compilers js:babel-core/register"
+    "test": "mocha --compilers js:babel-core/register"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -36,6 +36,7 @@
     "express": "^4.13.3",
     "morgan": "^1.8.0",
     "mysql": "^2.14.1",
+    "mysql2": "^1.4.1",
     "sequelize": "^4.4.2"
   },
   "devDependencies": {
