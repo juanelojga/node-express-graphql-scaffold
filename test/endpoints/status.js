@@ -2,7 +2,7 @@ import assert from 'assert'
 import expect from 'expect'
 import chai from 'chai'
 import chaiHttp from 'chai-http'
-import app from '../src/'
+import app from '../../src/'
 
 
 chai.use(chaiHttp);
@@ -15,6 +15,8 @@ describe('Api Version', function() {
         .get('/api')
         .end(function (err, res) {
           assert.equal(res.status, 200);
+          expect(res.body.version).toBe('1.0.0');
+          expect(res.body.status).toBe('online');
           done();
         });
     });
