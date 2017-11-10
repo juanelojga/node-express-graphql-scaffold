@@ -1,57 +1,14 @@
-import bcrypt from 'bcrypt-nodejs'
+'use strict'
 
-export default (sequelize, DataType) => {
-  const User = sequelize.define('User', {
-    id: {
-      type: DataType.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
+import { ottoman } from './index'
 
-    uuid: {
-      type: DataType.UUID,
-      defaultValue: DataType.UUIDV1
-    },
-
-    email: {
-      type: DataType.STRING(255),
-      allowNull: false,
-      validate: {
-        isEmail: true
-      }
-    },
-
-    name: {
-      type: DataType.STRING(255),
-      allowNull: false
-    },
-
-    password: {
-      type: DataType.STRING(100),
-      allowNull: true,
-      defaultValue: null,
-      set (password) {
-        if (password) {
-          this.setDataValue('password', this.generateHash(password))
-        }
-      }
-    }
-
-    }, {
-    paranoid: true,
-    indexes: [
-      {
-        fields: ['email'],
-      }
-    ],
-    instanceMethods: {
-      generateHash (password) {
-        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
-      },
-      validPassword (password) {
-        return bcrypt.compareSync(password, this.password)
-      }
-    }
-  });
-  return User;
-}
+module.exports = ottoman.model('User', {
+  firstName: 'string',
+  lastName: 'string',
+  email: 'string',
+  password: 'string',
+  createdAt: {
+    type: 'Date', 
+    default: Date.now
+  }
+});

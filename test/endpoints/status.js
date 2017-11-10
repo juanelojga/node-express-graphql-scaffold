@@ -1,3 +1,5 @@
+'use strict'
+
 import assert from 'assert'
 import expect from 'expect'
 import chai from 'chai'
@@ -6,7 +8,6 @@ import app from '../../src/'
 
 
 chai.use(chaiHttp);
-
 
 describe('Api Version', function() {
   describe('Get Version', function() {
