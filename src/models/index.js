@@ -1,13 +1,14 @@
-'use strict'
+'use strict';
 
-import config from './../config'
-import ottoman from 'ottoman'
-import couchbase from 'couchbase'
+import sequelize from '../sequelize'
+import User from './user'
 
-const cluster = new couchbase.Cluster(config.databaseUrl);
-ottoman.bucket = cluster.openBucket(config.bucket);
+function sync (...args) {
+  return sequelize.sync(...args)
+}
 
-module.exports = {
-  ottoman: ottoman,
-  cluster: cluster
+export default { sync }
+
+export {
+  User
 }

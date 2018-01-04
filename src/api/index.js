@@ -2,6 +2,7 @@
 
 import { version } from '../../package.json';
 import { Router } from 'express';
+import login from './login'
 
 export default () => {
 	let api = Router();
@@ -13,6 +14,8 @@ export default () => {
 			"date": new Date
 		});
 	});
+
+	api.use(login());
 
 	return api;
 }
