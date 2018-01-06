@@ -1,5 +1,3 @@
-'use strict'
-
 import expect from 'expect'
 import chai from 'chai'
 import chaiHttp from 'chai-http'
@@ -84,5 +82,5 @@ describe('Login', () => {
     });
 
   });
-  
+
 });

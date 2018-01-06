@@ -1,5 +1,3 @@
-'use strict';
-
 import sequelize from '../sequelize'
 import User from './user'
 

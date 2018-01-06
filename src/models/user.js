@@ -1,5 +1,3 @@
-'use strict';
-
 import Model from '../sequelize';
 import DataType from 'sequelize';
 import bcrypt from 'bcrypt';

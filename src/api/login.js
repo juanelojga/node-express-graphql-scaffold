@@ -1,5 +1,3 @@
-'use strict'
-
 import { Router } from 'express';
 import { User } from './../models';
 import token from './../services/token';

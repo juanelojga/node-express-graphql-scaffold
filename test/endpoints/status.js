@@ -1,5 +1,3 @@
-'use strict'
-
 import assert from 'assert'
 import expect from 'expect'
 import chai from 'chai'

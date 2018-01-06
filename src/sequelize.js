@@ -1,5 +1,3 @@
-'use strict';
-
 import Sequelize from 'sequelize';
 import { databaseUrl } from './config';
 

@@ -1,5 +1,3 @@
-'use strict'
-
 import expect from 'expect'
 import token from './../../src/services/token'
 import jwt from 'jsonwebtoken';

@@ -1,5 +1,3 @@
-'use strict'
-
 import { version } from '../../package.json';
 import { Router } from 'express';
 import login from './login'
