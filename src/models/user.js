@@ -1,7 +1,8 @@
 'use strict';
 
-import Model from '../sequelize'
-import DataType from 'sequelize'
+import Model from '../sequelize';
+import DataType from 'sequelize';
+import bcrypt from 'bcrypt';
 
 const User = Model.define('User', {
   id: {
@@ -38,14 +39,19 @@ const User = Model.define('User', {
     allowNull: true,
     defaultValue: null
   }
+  
 }, {
   underscored: true,
   tableName: 'users',
   indexes: [
     {
-      fields: ['email']
+      fields: ['email', 'uuid']
     }
   ]
 });
+
+User.prototype.verifyPassword = function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
 export default User;

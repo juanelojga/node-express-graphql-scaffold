@@ -14,9 +14,9 @@ describe('Token Service', () => {
       last_name: "Fonseca",
       email: "jose@example.com"
     }
-    const JWT = token.sign(User);
-    expect(JWT).toBeA('string');
-    const decoded = jwt.verify(JWT, config.jwtSecret, {
+    const accessToken = token.sign(User);
+    expect(accessToken.access_token).toBeA('string');
+    const decoded = jwt.verify(accessToken.access_token, config.jwtSecret, {
       issuer: "https://api.nodejs.co"
     });
     expect(decoded.first_name).toEqual("Jose");

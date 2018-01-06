@@ -3,7 +3,6 @@
 import http from 'http';
 import express from 'express';
 import cors from 'cors';
-import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import middleware from './middleware';
 import api from './api';
@@ -12,9 +11,6 @@ import models from './models'
 
 let app = express();
 app.server = http.createServer(app);
-
-// logger
-app.use(morgan('dev'));
 
 app.use(cors({
 	exposedHeaders: config.corsHeaders
@@ -31,16 +27,17 @@ app.use(middleware());
 app.use('/api', api());
 
 
-if(process.env.NODE_ENV == "testing") {
+if ( process.env.NODE_ENV == "testing" ) {
 	models.sync().catch(err => console.error(err.stack)).then(() => {
-		app.server.listen(config.port, () => {
+		app.server.listen(config.appPort, () => {
 			console.log(`Started on port ${app.server.address().port}`);
 		});
-	});
+	});	
 } else {
-	app.server.listen(config.port, () => {
+	app.server.listen(config.appPort, () => {
 		console.log(`Started on port ${app.server.address().port}`);
 	});
 }
+
 
 export default app;

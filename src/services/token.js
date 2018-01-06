@@ -8,9 +8,12 @@ import * as config from './../config'
  * @param {*} payload 
  */
 const signToken = (payload) => {
-  return jwt.sign(payload, config.jwtSecret, {
-    expiresIn: "7d"
-  });
+  return {
+    access_token: jwt.sign(payload, config.jwtSecret, {
+      expiresIn: 604800
+    }),
+    ttl: 604800
+  };
 }
 
 /**
