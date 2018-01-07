@@ -1,23 +1,28 @@
-import { Router } from 'express';
-import { User } from './../models';
-import token from './../services/token';
-import * as config from './../config';
+
+import { User } from './../../models';
+import token from './../../services/token';
+import * as config from './../../config';
 import Promise from 'bluebird';
+import httpException from '../../exceptions/httpException'
+import Controller from '../controller';
 
-export default () => {
-  let route = Router();
+/**
+ * Login a User
+ */
+class Login extends Controller {
 
-  route.post('/login', (req, res) => {
-
+  /**
+   * Handle the incoming request
+   * @param {*} req Express Request Object
+   * @param {*} res Express Response Object
+   */
+  handle(req, res) {
     const credentials = req.body;
 
     User.findOne({ where: { email: credentials.email } })
     .then(user => {
       if (!user) {
-        let ErrorUserNotFound = new Error;
-        ErrorUserNotFound.status = 401;
-        ErrorUserNotFound.title = 'User not found';
-        ErrorUserNotFound.code = 'USER_NOT_FOUND';
+        let ErrorUserNotFound = new httpException('User not found', 'USER_NOT_FOUND', 401);
         return Promise.reject(ErrorUserNotFound);
       }
       return [
@@ -27,10 +32,7 @@ export default () => {
     })
     .spread((user, result) => {
       if (!result) {
-        let ErrorPassword = new Error;
-        ErrorPassword.status = 401;
-        ErrorPassword.title = 'Wrong credentials';
-        ErrorPassword.code = 'LOGIN_FAILED';
+        let ErrorPassword = new httpException('Wrong credentials', 'LOGIN_FAILED', 401);
         return Promise.reject(ErrorPassword);
       }
       return Promise.resolve(user);  
@@ -49,14 +51,10 @@ export default () => {
       });
     })
     .catch(err => {
-      res.status(err.status).json({
-        title: err.title,
-        status: err.status,
-        code: err.code
-      });
+      super.errorResponse(res, err);  
     });
+  }
 
-  });
-
-  return route;
 }
+
+export default Login;

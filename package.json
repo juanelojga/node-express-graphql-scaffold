@@ -36,6 +36,7 @@
     "cors": "^2.7.1",
     "dotenv": "^4.0.0",
     "express": "^4.13.3",
+    "express-laravel-router": "^1.4.1",
     "jsonwebtoken": "^8.1.0",
     "morgan": "^1.8.0",
     "mysql2": "^1.5.1",

@@ -11,7 +11,7 @@ describe('Api Version', function() {
   describe('Get Version', function() {
     it('Should get the API version response', function(done) {
       chai.request(app)
-        .get('/api')
+        .get('/api/ping')
         .end(function (err, res) {
           assert.equal(res.status, 200);
           expect(res.body.version).toBe('1.0.0');

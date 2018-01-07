@@ -31,7 +31,7 @@ describe('Login', () => {
 
     it('Should generate a new access token for user', (done) => {
       chai.request(app)
-        .post('/api/login')
+        .post('/api/auth/login')
         .send({
           email: "user@example.com",
           password: "MySuperPassword"
@@ -49,7 +49,7 @@ describe('Login', () => {
 
     it('Should return 401 for wrong password', (done) => {
       chai.request(app)
-        .post('/api/login')
+        .post('/api/auth/login')
         .send({
           email: "user@example.com",
           password: "MySuperBadPassword"
@@ -66,7 +66,7 @@ describe('Login', () => {
 
     it('Should return 401 for user not found', (done) => {
       chai.request(app)
-        .post('/api/login')
+        .post('/api/auth/login')
         .send({
           email: "user2@example.com",
           password: "MySuperBadPassword"
