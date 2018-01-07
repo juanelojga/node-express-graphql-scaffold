@@ -1,12 +1,15 @@
 import expect from 'expect'
 import chai from 'chai'
 import chaiHttp from 'chai-http'
-import app from '../../src/'
 import token from './../../src/services/token'
 import { User } from './../../src/models'
 import bcrypt from 'bcrypt'
+import Application from './../../src/application';
 
 chai.use(chaiHttp);
+
+const application = new Application;
+application.init();
 
 describe('Login', () => {
 
@@ -30,7 +33,7 @@ describe('Login', () => {
     });
 
     it('Should generate a new access token for user', (done) => {
-      chai.request(app)
+      chai.request(application.app)
         .post('/api/auth/login')
         .send({
           email: "user@example.com",
@@ -48,7 +51,7 @@ describe('Login', () => {
     });
 
     it('Should return 401 for wrong password', (done) => {
-      chai.request(app)
+      chai.request(application.app)
         .post('/api/auth/login')
         .send({
           email: "user@example.com",
@@ -65,7 +68,7 @@ describe('Login', () => {
     });
 
     it('Should return 401 for user not found', (done) => {
-      chai.request(app)
+      chai.request(application.app)
         .post('/api/auth/login')
         .send({
           email: "user2@example.com",

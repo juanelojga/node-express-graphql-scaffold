@@ -2,15 +2,17 @@ import assert from 'assert'
 import expect from 'expect'
 import chai from 'chai'
 import chaiHttp from 'chai-http'
-import app from '../../src/'
-
+import Application from './../../src/application';
 
 chai.use(chaiHttp);
+
+const application = new Application;
+application.start();
 
 describe('Api Version', function() {
   describe('Get Version', function() {
     it('Should get the API version response', function(done) {
-      chai.request(app)
+      chai.request(application.app)
         .get('/api/ping')
         .end(function (err, res) {
           assert.equal(res.status, 200);

@@ -4,19 +4,19 @@ import token from './../../services/token';
 import * as config from './../../config';
 import Promise from 'bluebird';
 import httpException from '../../exceptions/httpException'
-import Controller from '../controller';
+import Handler from '../../exceptions/handler'
 
 /**
  * Login a User
  */
-class Login extends Controller {
+class Login {
 
   /**
    * Handle the incoming request
    * @param {*} req Express Request Object
    * @param {*} res Express Response Object
    */
-  handle(req, res) {
+  handle(req, res, next) {
     const credentials = req.body;
 
     User.findOne({ where: { email: credentials.email } })
@@ -51,7 +51,7 @@ class Login extends Controller {
       });
     })
     .catch(err => {
-      super.errorResponse(res, err);  
+      next(err);
     });
   }
 
