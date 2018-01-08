@@ -4,7 +4,6 @@ import token from './../../services/token';
 import * as config from './../../config';
 import Promise from 'bluebird';
 import httpException from '../../exceptions/httpException'
-import Handler from '../../exceptions/handler'
 
 /**
  * Login a User
@@ -15,6 +14,7 @@ class Login {
    * Handle the incoming request
    * @param {*} req Express Request Object
    * @param {*} res Express Response Object
+   * @param {*} next Express next function
    */
   handle(req, res, next) {
     const credentials = req.body;
