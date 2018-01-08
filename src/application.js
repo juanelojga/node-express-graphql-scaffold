@@ -1,13 +1,14 @@
-import http from 'http';
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import middleware from './middleware';
-import api from './routes/api';
+import http from 'http'
+import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+import api from './routes/api'
 import * as config from './config'
 import models from './models'
-import laravelRouter from 'express-laravel-router';
+import laravelRouter from 'express-laravel-router'
 import ErrorHandler from './exceptions/handler'
+import passportJwtStrategy from './passport/jwt'
+import passport from 'passport'
 
 /**
  * Main Application
@@ -20,8 +21,9 @@ class Aplication {
   init() {
     this.app = express();
     this.app.server = http.createServer(this.app);
-    this.registerMainMiddleware()
+    this.registerCoreMiddleware()
     .registerRouter()
+    .registerApiRoutes()
     .regiterErrorHandler();
     return this;
   }
@@ -34,7 +36,10 @@ class Aplication {
   /**
    * Register core middleware
    */
-  registerMainMiddleware() {
+  registerCoreMiddleware() {
+    
+    passport.use(passportJwtStrategy);
+
     this.app.use(cors({
       exposedHeaders: config.corsHeaders
     }));
@@ -43,8 +48,8 @@ class Aplication {
       limit : config.bodyLimit
     }));
 
-    // internal middleware
-    this.app.use(middleware());
+    this.app.use(passport.initialize());
+
     return this;
   }
   /**
@@ -58,9 +63,16 @@ class Aplication {
 
     this.router = laravelRouter.createRouter(this.app, mapActionToHandler);
 
+    return this;
+  }
+  /**
+   * Register API Routes
+   */
+  registerApiRoutes() {
     this.router.group('/api', api);
     return this;
   }
+
   /**
    * Register Error Handler
    */
