@@ -9,6 +9,8 @@ import laravelRouter from 'express-laravel-router'
 import ErrorHandler from './exceptions/handler'
 import passportJwtStrategy from './passport/jwt'
 import passport from 'passport'
+import schema from './schema'
+import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
 
 /**
  * Main Application
@@ -24,6 +26,7 @@ class Aplication {
     this.registerCoreMiddleware()
     .registerRouter()
     .registerApiRoutes()
+    .registerGraphQl()
     .regiterErrorHandler();
     return this;
   }
@@ -72,6 +75,14 @@ class Aplication {
     this.router.group('/api', api);
     return this;
   }
+  /**
+   * Register GraphQL endpoints
+   */
+  registerGraphQl() {
+    this.app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+    this.app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+    return this;
+  }
 
   /**
    * Register Error Handler
@@ -80,6 +91,7 @@ class Aplication {
     this.app.use((err, req, res, next) => {
       const handler = new ErrorHandler;
       handler.handle(err, req, res);
+      console.log(err);
     });
     return this;
   }

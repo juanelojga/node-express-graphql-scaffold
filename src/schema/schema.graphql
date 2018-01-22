@@ -1,0 +1,27 @@
+scalar Date
+
+type User {
+    id: ID!
+    uuid: String
+    email: String
+    first_name: String
+    last_name: String
+    created_at: Date
+    updated_at: Date,
+    formatted: String
+}
+# Pagination
+
+type pageOfUsers{
+    items: [User],
+    totalCount: Int
+}
+
+type Query {
+    getPageOfUsers(page: Int, perPage: Int, sortField: String, sortOrder: String, filter: String): pageOfUsers
+    getUser(id: ID!): User
+}
+
+schema {
+    query: Query
+}
