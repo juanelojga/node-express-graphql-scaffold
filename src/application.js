@@ -10,7 +10,8 @@ import ErrorHandler from './exceptions/handler'
 import passportJwtStrategy from './passport/jwt'
 import passport from 'passport'
 import schema from './schema'
-import { graphqlExpress, graphiqlExpress } from 'apollo-server-express';
+import { graphqlExpress } from 'apollo-server-express';
+import authenticate from './passport/authenticate'
 
 /**
  * Main Application
@@ -79,8 +80,7 @@ class Aplication {
    * Register GraphQL endpoints
    */
   registerGraphQl() {
-    this.app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
-    this.app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
+    this.app.use('/graphql', authenticate, bodyParser.json(), graphqlExpress({ schema }));
     return this;
   }
 
