@@ -9,11 +9,6 @@ const User = Model.define('User', {
     autoIncrement: true
   },
 
-  uuid: {
-    type: DataType.UUID,
-    defaultValue: DataType.UUIDV4,
-  },
-
   first_name: {
     type: DataType.STRING(255),
     allowNull: false
@@ -43,7 +38,7 @@ const User = Model.define('User', {
   tableName: 'users',
   indexes: [
     {
-      fields: ['email', 'uuid']
+      fields: ['email']
     }
   ]
 });

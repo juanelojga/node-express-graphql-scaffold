@@ -59,7 +59,7 @@ class Login {
     })
     .then(user => {
       const jwt = token.sign({
-        sub: user.uuid,
+        sub: user.id,
         iss: config.jwtIssuer,
         first_name: user.first_name,
         last_name: user.last_name,

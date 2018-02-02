@@ -51,7 +51,7 @@ describe('Users', () => {
 
     it('Should get users with valid token', (done) => {
       const payload = {
-        sub: UserCreated.uuid,
+        sub: UserCreated.id,
         iss: "https://api.nodejs.co",
         first_name: 'John',
         last_name: 'Doe',

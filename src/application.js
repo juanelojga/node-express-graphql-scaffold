@@ -4,14 +4,14 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 import api from './routes/api'
 import * as config from './config'
-import models from './models'
 import laravelRouter from 'express-laravel-router'
 import ErrorHandler from './exceptions/handler'
 import passportJwtStrategy from './passport/jwt'
 import passport from 'passport'
 import schema from './schema'
-import { graphqlExpress } from 'apollo-server-express';
+import { graphqlExpress } from 'apollo-server-express'
 import authenticate from './passport/authenticate'
+import debug from 'debug'
 
 /**
  * Main Application
@@ -77,7 +77,7 @@ class Aplication {
     return this;
   }
   /**
-   * Register GraphQL endpoints
+   * Register GraphQL endpoint
    */
   registerGraphQl() {
     this.app.use('/graphql', authenticate, graphqlExpress({ schema }));
@@ -100,7 +100,7 @@ class Aplication {
   run() {
     // start of the server
     this.app.server.listen(config.appPort, () => {
-      console.log(`Started on port ${this.app.server.address().port}`);
+      debug('listen')(`Started on port ${this.app.server.address().port}`);
     });
   }
 

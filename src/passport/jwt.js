@@ -11,7 +11,7 @@ opts.secretOrKey = config.jwtSecret;
 opts.issuer = config.jwtIssuer;
 
 const strategy = new JwtStrategy(opts, (payload, next) => {
-  return User.findOne({ where: { uuid: payload.sub } })
+  return User.findOne({ where: { id: payload.sub } })
   .then(user => {
     next(null, user);
     return null;

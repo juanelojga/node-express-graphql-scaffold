@@ -10,7 +10,7 @@ class GetUsers {
       res.json({
         data: _.map(users, (user) => {
           return {
-            id: user.uuid,
+            id: user.id,
             first_name: user.first_name,
             last_name: user.last_name,
             email: user.email,

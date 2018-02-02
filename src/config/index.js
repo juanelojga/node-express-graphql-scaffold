@@ -2,6 +2,10 @@
 
 const fs = require('fs');
 
+if (process.env.NODE_ENV === undefined) {
+  process.env.NODE_ENV = "development";
+}
+
 require('dotenv').config({path: `.env.${process.env.NODE_ENV}`})
 
 require.extensions['.graphql'] = (module, filename) => {
@@ -12,7 +16,7 @@ module.exports = {
   corsHeaders: ['Link'],
   appPort: process.env.PORT || 3001,
   databaseUrl: process.env.DATABASE_URL,
-  dialect: 'mysql',
+  dialect: process.env.DB_DIALECT || 'mysql',
   username: process.env.DB_USERNAME || 'root',
   password: process.env.DB_PASSWORD || 'secret',
   database: process.env.DB_DATABASE || 'node_api',
