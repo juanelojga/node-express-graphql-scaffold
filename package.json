@@ -8,7 +8,7 @@
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
     "start": "node dist",
     "prestart": "npm run -s build",
-    "test": "NODE_ENV=testing mocha --recursive --compilers js:babel-core/register",
+    "test": "NODE_ENV=testing mocha --recursive --compilers js:babel-core/register --require babel-polyfill",
     "sequelize": "node_modules/.bin/sequelize",
     "migrate": "node_modules/.bin/sequelize db:migrate"
   },
@@ -50,11 +50,13 @@
     "pluralize": "^7.0.0",
     "sequelize": "^4.28.6",
     "sequelize-cli": "^3.2.0",
-    "sqlite3": "^3.1.13"
+    "sqlite3": "^3.1.13",
+    "validate.js": "^0.12.0"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
     "babel-core": "^6.9.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^4.1.1",

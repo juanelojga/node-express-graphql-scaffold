@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { get, isObject, isString } from 'lodash'
 
-export const processGetPage = async (Model, {filter, include = []}) => {
+export const processGetPage = async(Model, {filter, include = []}) => {
   let where = {}
 
   if (filter) {

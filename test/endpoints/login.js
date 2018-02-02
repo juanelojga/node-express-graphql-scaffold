@@ -84,6 +84,23 @@ describe('Login', () => {
         });
     });
 
+    it('Should return 422 for missing params', (done) => {
+      chai.request(application.app)
+        .post('/api/auth/login')
+        .send({
+          email: "user2@example.com",
+        })
+        .end(function (err, res) {
+          const body = res.body;
+          expect(res.status).toEqual(422);
+          expect(body.status).toEqual(422);
+          expect(body.code).toEqual('VALIDATION_EXCEPTION');
+          expect(body.title).toEqual('Incomplete or invalid request data');
+          expect(body.errors.password.length).toEqual(1);
+          done();
+        });
+    })
+
   });
 
 });

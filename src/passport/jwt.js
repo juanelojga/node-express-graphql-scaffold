@@ -11,12 +11,14 @@ opts.secretOrKey = config.jwtSecret;
 opts.issuer = config.jwtIssuer;
 
 const strategy = new JwtStrategy(opts, (payload, next) => {
-  User.findOne({ where: { id: payload.sub } })
+  return User.findOne({ where: { uuid: payload.sub } })
   .then(user => {
-    return next(null, user);
+    next(null, user);
+    return null;
   })
   .catch(err => {
-    return next(err, false);
+    next(err, false);
+    return null;
   })
 });
 

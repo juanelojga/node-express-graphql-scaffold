@@ -80,7 +80,7 @@ class Aplication {
    * Register GraphQL endpoints
    */
   registerGraphQl() {
-    this.app.use('/graphql', authenticate, bodyParser.json(), graphqlExpress({ schema }));
+    this.app.use('/graphql', authenticate, graphqlExpress({ schema }));
     return this;
   }
 
@@ -91,7 +91,6 @@ class Aplication {
     this.app.use((err, req, res, next) => {
       const handler = new ErrorHandler;
       handler.handle(err, req, res);
-      console.log(err);
     });
     return this;
   }
@@ -100,17 +99,9 @@ class Aplication {
    */
   run() {
     // start of the server
-    if ( process.env.NODE_ENV == "testing" ) {
-      models.sync().catch(err => console.error(err.stack)).then(() => {
-        this.app.server.listen(config.appPort, () => {
-          console.log(`Started on port ${this.app.server.address().port}`);
-        });
-      });	
-    } else {
-      this.app.server.listen(config.appPort, () => {
-        console.log(`Started on port ${this.app.server.address().port}`);
-      });
-    }
+    this.app.server.listen(config.appPort, () => {
+      console.log(`Started on port ${this.app.server.address().port}`);
+    });
   }
 
 }

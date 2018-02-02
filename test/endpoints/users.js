@@ -51,7 +51,7 @@ describe('Users', () => {
 
     it('Should get users with valid token', (done) => {
       const payload = {
-        sub: UserCreated.id,
+        sub: UserCreated.uuid,
         iss: "https://api.nodejs.co",
         first_name: 'John',
         last_name: 'Doe',
@@ -63,6 +63,9 @@ describe('Users', () => {
         .set('Authorization', `Bearer ${accessToken.access_token}`)
         .end(function (err, res) {
           expect(res.status).toEqual(200);
+          expect(res.body.data.length).toEqual(1);
+          expect(res.body.data[0].first_name).toEqual('John');
+          expect(res.body.data[0].last_name).toEqual('Doe');
           done();
         });
     });

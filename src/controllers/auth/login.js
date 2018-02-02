@@ -3,7 +3,9 @@ import { User } from './../../models';
 import token from './../../services/token';
 import * as config from './../../config';
 import Promise from 'bluebird';
-import httpException from '../../exceptions/httpException'
+import httpException from '../../exceptions/httpException';
+import validationException from '../../exceptions/validationException';
+import validate from 'validate.js';
 
 /**
  * Login a User
@@ -18,6 +20,24 @@ class Login {
    */
   handle(req, res, next) {
     const credentials = req.body;
+
+    var constraints = {
+      email: {
+        presence: true,
+        email: true
+      },
+      password: {
+        presence: true
+      }
+    };
+
+    const errors = validate(credentials, constraints);
+    
+    if (errors !== undefined) {
+      let err = new validationException('Incomplete or invalid request data', 'VALIDATION_EXCEPTION', errors);
+      next(err);
+      return null;
+    }
 
     User.findOne({ where: { email: credentials.email } })
     .then(user => {
