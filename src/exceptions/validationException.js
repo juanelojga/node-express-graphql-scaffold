@@ -1,22 +1,24 @@
 /**
- * Class httpException
+ * Class ValidationException
  * Used to return an http exception
  */
-class validationException {
+class ValidationException extends Error {
   /**
-   * 
-   * @param {string} title 
+   *
+   * @param {string} title
    * @param {string} code
    * @param {object} errors
-   * @param {number} status 
+   * @param {number} status
    */
- constructor(title, code, errors, status = 422) {
-   this.title = title;
-   this.code = code;
-   this.errors = errors;
-   this.status = status;
- }
-
+  constructor (title, code, errors, status = 422) {
+    super()
+    Error.captureStackTrace(this, this.constructor)
+    this.title = title
+    this.code = code
+    this.errors = errors
+    this.status = status
+    this.name = 'validationException'
+  }
 }
 
-export default validationException;
+export default ValidationException

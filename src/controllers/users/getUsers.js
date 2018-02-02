@@ -1,10 +1,8 @@
-import { User } from './../../models';
-import _ from 'lodash';
+import { User } from './../../models'
+import _ from 'lodash'
 
 class GetUsers {
-
-  handle(req, res, next) {
-    
+  handle (req, res, next) {
     User.findAll()
     .then(users => {
       res.json({
@@ -20,9 +18,7 @@ class GetUsers {
         })
       })
     })
-
   }
-
 }
 
-export default GetUsers;
+export default GetUsers

@@ -17,93 +17,90 @@ import debug from 'debug'
  * Main Application
  */
 class Aplication {
-
   /**
    * Init Express App
    */
-  init() {
-    this.app = express();
-    this.app.server = http.createServer(this.app);
+  init () {
+    this.app = express()
+    this.app.server = http.createServer(this.app)
     this.registerCoreMiddleware()
     .registerRouter()
     .registerApiRoutes()
     .registerGraphQl()
-    .regiterErrorHandler();
-    return this;
+    .regiterErrorHandler()
+    return this
   }
   /**
    * Init and Start the Express app
    */
-  start() {
-    this.init().run();
+  start () {
+    this.init().run()
   }
   /**
    * Register core middleware
    */
-  registerCoreMiddleware() {
-    
-    passport.use(passportJwtStrategy);
+  registerCoreMiddleware () {
+    passport.use(passportJwtStrategy)
 
     this.app.use(cors({
       exposedHeaders: config.corsHeaders
-    }));
+    }))
 
     this.app.use(bodyParser.json({
-      limit : config.bodyLimit
-    }));
+      limit: config.bodyLimit
+    }))
 
-    this.app.use(passport.initialize());
+    this.app.use(passport.initialize())
 
-    return this;
+    return this
   }
   /**
    * Register router
    */
-  registerRouter() {
+  registerRouter () {
     // api router
     const mapActionToHandler = (action, routeDescription, routeOptions) => {
-      return action.handle;
-    };
+      return action.handle
+    }
 
-    this.router = laravelRouter.createRouter(this.app, mapActionToHandler);
+    this.router = laravelRouter.createRouter(this.app, mapActionToHandler)
 
-    return this;
+    return this
   }
   /**
    * Register API Routes
    */
-  registerApiRoutes() {
-    this.router.group('/api', api);
-    return this;
+  registerApiRoutes () {
+    this.router.group('/api', api)
+    return this
   }
   /**
    * Register GraphQL endpoint
    */
-  registerGraphQl() {
-    this.app.use('/graphql', authenticate, graphqlExpress({ schema }));
-    return this;
+  registerGraphQl () {
+    this.app.use('/graphql', authenticate, graphqlExpress({ schema }))
+    return this
   }
 
   /**
    * Register Error Handler
    */
-  regiterErrorHandler() {
+  regiterErrorHandler () {
     this.app.use((err, req, res, next) => {
-      const handler = new ErrorHandler;
-      handler.handle(err, req, res);
-    });
-    return this;
+      const handler = new ErrorHandler()
+      handler.handle(err, req, res)
+    })
+    return this
   }
   /**
    * Run the App
    */
-  run() {
+  run () {
     // start of the server
     this.app.server.listen(config.appPort, () => {
-      debug('listen')(`Started on port ${this.app.server.address().port}`);
-    });
+      debug('listen')(`Started on port ${this.app.server.address().port}`)
+    })
   }
-
 }
 
-export default Aplication;
+export default Aplication

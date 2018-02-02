@@ -1,10 +1,6 @@
-import Sequelize from 'sequelize';
-import { databaseUrl } from './config';
+import Sequelize from 'sequelize'
+import * as options from './config'
 
-let options = {
-  logging: null
-}
-
-const sequelize = new Sequelize(databaseUrl, options)
+const sequelize = new Sequelize(options)
 
 export default sequelize

@@ -4,13 +4,18 @@
   "description": "Starter project for an ES6 RESTful Express API",
   "main": "dist",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
-    "build": "babel src -s -D -d dist --presets es2015,stage-0",
+    "dev": "NODE_ENV=development nodemon src --exec babel-node",
+    "build": "babel src -s -D -d dist",
     "start": "node dist",
-    "prestart": "npm run -s build",
-    "test": "NODE_ENV=testing mocha --recursive --compilers js:babel-core/register --require babel-polyfill",
+    "test": "NODE_ENV=testing mocha --recursive --compilers js:babel-core/register",
     "sequelize": "node_modules/.bin/sequelize",
-    "migrate": "node_modules/.bin/sequelize db:migrate"
+    "migrate": "node_modules/.bin/sequelize db:migrate",
+    "migrate-tests": "NODE_ENV=testing node_modules/.bin/sequelize db:migrate",
+    "lint": "standard --fix --verbose | snazzy",
+    "prepush": "yarn lint"
+  },
+  "engines": {
+    "node": ">=8.9"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -24,12 +29,16 @@
     "rules": {
       "no-console": 0,
       "no-unused-vars": 1
+    },
+    "globals": {
+      "__DEV__": true
     }
   },
   "author": "Jose Fonseca <jose@ditecnologia.com>",
   "license": "MIT",
   "dependencies": {
     "apollo-server-express": "^1.3.2",
+    "babel-runtime": "^6.26.0",
     "bcrypt": "^1.0.3",
     "bluebird": "^3.5.0",
     "body-parser": "^1.13.3",
@@ -44,27 +53,37 @@
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "morgan": "^1.8.0",
-    "mysql2": "^1.5.1",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
+    "pg": "^5.0.0",
     "pluralize": "^7.0.0",
     "sequelize": "^4.28.6",
     "sequelize-cli": "^3.2.0",
-    "sqlite3": "^3.1.13",
     "validate.js": "^0.12.0"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
-    "babel-core": "^6.9.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-stage-0": "^6.5.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
     "chai": "^4.1.1",
     "chai-http": "^3.0.0",
     "debug": "^3.1.0",
     "eslint": "^3.1.1",
     "expect": "^1.20.2",
     "mocha": "^3.5.0",
-    "nodemon": "^1.9.2"
+    "nodemon": "^1.9.2",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "/dist/",
+      "/src/schema/",
+      "/uploads/",
+      "test/"
+    ]
   }
 }

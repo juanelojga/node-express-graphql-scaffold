@@ -1,6 +1,6 @@
-import Model from '../sequelize';
-import DataType from 'sequelize';
-import bcrypt from 'bcrypt';
+import Model from '../sequelize'
+import DataType from 'sequelize'
+import bcrypt from 'bcrypt'
 
 const User = Model.define('User', {
   id: {
@@ -32,7 +32,7 @@ const User = Model.define('User', {
     allowNull: true,
     defaultValue: null
   }
-  
+
 }, {
   underscored: true,
   tableName: 'users',
@@ -41,10 +41,10 @@ const User = Model.define('User', {
       fields: ['email']
     }
   ]
-});
+})
 
 User.prototype.verifyPassword = function (password) {
-  return bcrypt.compare(password, this.password);
-};
+  return bcrypt.compare(password, this.password)
+}
 
-export default User;
+export default User

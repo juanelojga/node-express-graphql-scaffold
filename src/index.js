@@ -1,8 +1,6 @@
 
-import Application from './application';
+import Application from './application'
 
+const application = new Application()
 
-const application = new Application;
-
-application.start();
-
+application.start()

@@ -3,7 +3,7 @@ import * as config from './../config'
 
 /**
  * Sign a token
- * @param {*} payload 
+ * @param {*} payload
  */
 const signToken = (payload) => {
   return {
@@ -11,18 +11,18 @@ const signToken = (payload) => {
       expiresIn: 604800
     }),
     ttl: 604800
-  };
+  }
 }
 
 /**
  * Veirfy and decode a JWT
- * @param {*} token 
+ * @param {*} token
  */
 const verifyToken = (token) => {
   return jwt.verify(token, config.jwtSecret, {
     issuer: config.jwtIssuer
-  });
-};
+  })
+}
 
 /**
  * method assignation
@@ -32,4 +32,4 @@ const tokenService = {
   verify: verifyToken
 }
 
-export default tokenService;
+export default tokenService

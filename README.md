@@ -1,6 +1,6 @@
-# Express & ES6 REST & GRAPHQL API Starter Kit
+# Express & ES6 REST & GRAPHQL API Scaffold project
 
-This project aims to provide a clean start for your next API using Express JS.
+This project aims to be your starter point for your next GraphQL and REST API in NodeJS
 
 ## License
 
