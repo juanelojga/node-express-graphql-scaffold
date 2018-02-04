@@ -78,7 +78,15 @@ class Aplication {
    * Register GraphQL endpoint
    */
   registerGraphQl () {
-    this.app.use('/graphql', authenticate, graphqlExpress({ schema }))
+    this.app.use('/graphql', authenticate, graphqlExpress((req, res) => { 
+      return {
+        schema: schema,
+        context: {
+          req: req,
+          res: res
+        }
+      }
+     }));
     return this
   }
 

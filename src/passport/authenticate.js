@@ -9,6 +9,7 @@ const authenticate = (req, res, next) => {
     if (!user) {
       return next(new HttpException('Authentication Exception', 'UNAUTHENTICATED', 401))
     }
+    req.user = user;
     return next(null, user)
   })(req, res, next)
 }
